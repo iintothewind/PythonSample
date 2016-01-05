@@ -61,7 +61,7 @@ class BasicTest(unittest.TestCase):
 
     def test_ast(self):
         import ast
-        string = "['Dony.LEE@suncorp.com.au']"
+        string = "['Dony.LEE@email.com']"
         # string = '["Small", "Medium", "Large", "X-Large"]'
         for s in ast.literal_eval(string):
             print(s)
@@ -98,6 +98,7 @@ class Functions(unittest.TestCase):
                 raise OSError('uncooperative user')
             print(complaint)
 
+    @unittest.expectedFailure
     def test_ask(self):
         print(self.ask_ok('y'))
         print(self.ask_ok('n'))

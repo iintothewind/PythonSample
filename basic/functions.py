@@ -16,7 +16,7 @@ def createGenerator():
             yield v
 
 
-class FunctionSample(unittest.TestCase):
+class FunctionsTest(unittest.TestCase):
     def test_list(self):
         l = range(0, 50)
         print(l[0:3])
