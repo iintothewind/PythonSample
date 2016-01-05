@@ -1,0 +1,7 @@
+env/
+report/
+.idea/
+
+*.iml
+*.csv
+*.pyc
