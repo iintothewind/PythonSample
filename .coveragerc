@@ -1,0 +1,10 @@
+[run]
+branch = True
+source =
+    python-sample
+omit =
+    env/*
+    python-sample/env/*
+    python-sample/requirements/*
+[report]
+precision = 2
