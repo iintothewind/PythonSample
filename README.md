@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/iintothewind/python-sample.svg)](https://travis-ci.org/iintothewind/python-sample)
+[![Build Status](https://travis-ci.org/iintothewind/PythonSample.svg?branch=master)](https://travis-ci.org/iintothewind/PythonSample)
 [![Coverage Status](https://coveralls.io/repos/iintothewind/python-sample/badge.svg?branch=master&service=github)](https://coveralls.io/github/iintothewind/python-sample?branch=master)
 # Intro
 This project is to demostrate the basic usage of some python packages
