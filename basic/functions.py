@@ -59,3 +59,6 @@ class FunctionsTest(unittest.TestCase):
         row = {'a': 'apple', 'b': 'boy', 'c': 'cat'}
         map_row = map(lambda k: row[k], header)
         print(map_row)
+
+if __name__ == '__main__':
+    unittest.main()

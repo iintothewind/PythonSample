@@ -15,3 +15,7 @@ class StringTest(unittest.TestCase):
         print(file_name)
         extension = '' if file_no_extension.rfind('.') == -1 else file_no_extension[file_no_extension.rfind('.') + 1:]
         print('extension = %s' % extension)
+
+
+if __name__ == '__main__':
+    unittest.main()

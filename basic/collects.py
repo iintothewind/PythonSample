@@ -26,3 +26,7 @@ class CollectionsTest(unittest.TestCase):
         colored_point[point(x=1, y=1)] = '10'
         for k, v in colored_point.items():
             print('type(k) == {}, k.x == {}, k.y == {}, v == {}'.format(type(k), k.x, k.y, v))
+
+
+if __name__ == '__main__':
+    unittest.main()

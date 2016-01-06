@@ -74,8 +74,6 @@ class BasicTest(unittest.TestCase):
             print('get keyerror here, because ge is not existing in args')
         print(args.get('ge', 'Germany'))
 
-
-class Functions(unittest.TestCase):
     def fib(self, n):
         a, b = 0, 1
         while a < n:
@@ -129,3 +127,7 @@ class Functions(unittest.TestCase):
         print("""Everything comes with a price
 Never say no to any obstacles
 Protect your dream""")
+
+
+if __name__ == '__main__':
+    unittest.main()
