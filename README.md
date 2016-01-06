@@ -15,6 +15,6 @@ pip install pip --upgrade
 pip install virtualenv
 virtualenv env
 source env/bin/activate
-pip install -r requirements\local.txt
+pip install -r requirements/local.txt
 
 ```
