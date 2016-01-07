@@ -5,7 +5,7 @@ This project is to demostrate the basic usage of some python packages
 
 # Development Pre-Requisities
 
-* Python 3
+* Python 2.7
 * IntelliJ 14 Ultimate recommended
 
 # Quick start
