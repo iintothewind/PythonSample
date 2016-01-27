@@ -1,14 +1,14 @@
 # coding=UTF-8
 from pytz import timezone
 from datetime import datetime, timedelta
-from unittest import TestCase
+import unittest
 
 shanghai_zone = timezone('Asia/Shanghai')
 brisbane_zone = timezone('Australia/Brisbane')
 los_angeles_zone = timezone('America/Los_Angeles')
 
 
-class TimeSample(TestCase):
+class TimeSample(unittest.TestCase):
     def setUp(self):
         self.now = datetime.now()
 
@@ -36,3 +36,7 @@ class TimeSample(TestCase):
         print('tomorrow - today: %s' % time_diff)
         assert (tomorrow > today)
         assert (time_diff > one_hour)
+
+
+if __name__ == '__main__':
+    unittest.main()
