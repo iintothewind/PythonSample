@@ -128,6 +128,15 @@ class BasicTest(unittest.TestCase):
 Never say no to any obstacles
 Protect your dream""")
 
+    def method_with_default_params(self, arg0=None, arg1=None, arg2=None, arg3=None):
+        print('arg0={},arg1={},arg2={},arg3={}'.format(arg0, arg1, arg2, arg3))
+
+    def test_default_parameters(self):
+        args = {'arg0': 0, 'arg1': 1, 'arg2': 2, 'arg3': 3}
+        self.method_with_default_params(**args)
+        args1 = {'arg0': 0, 'arg3': 3}
+        self.method_with_default_params(**args1)
+
 
 if __name__ == '__main__':
     unittest.main()
