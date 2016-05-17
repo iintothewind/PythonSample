@@ -6,9 +6,8 @@ import os
 class StringTest(unittest.TestCase):
     def test_unicode(self):
         print('Vero Personal Insurance Proposal ƒ.pdf')
-        
-        
-    def str_between(self, s, before, after):
+
+    def substr_between(self, s, before, after):
         if s:
             before_index = s.find(before) + len(before)
             after_index = s.find(after, before_index)
@@ -16,12 +15,10 @@ class StringTest(unittest.TestCase):
                 return s[before_index:after_index]
         return s
 
-    def test_str_find(self):
+    def test_substr_between(self):
         file_absolute_name = os.path.realpath(__file__)
-        print("file absolute path: {}".format(file_absolute_name))
-        print self.str_between(str(file_absolute_name), "b1asic\\", ".py")
-        assert "strings" == self.str_between(str(file_absolute_name), "basic\\", ".py")
-        
+        assert "strings" == self.substr_between(str(file_absolute_name), "basic{}".format(os.path.sep), ".py")
+
     def test_str_rfind(self):
         file_absolute_name = os.path.realpath(__file__)
         file_name = file_absolute_name[file_absolute_name.rfind('/') + 1:]
