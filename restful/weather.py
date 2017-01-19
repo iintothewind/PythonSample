@@ -11,7 +11,7 @@ class WeatherReport:
 
     def report_weather(self, city):
         param = {'appid': self.__appid, 'lang': self.__lang, 'q': city}
-        return self.__restful_client.rest(lambda url, **kwargs: self.session.get(url, **kwargs), '/data/2.5/WeatherReport', path)
+        return self.__restful_client.rest(lambda url, **kwargs: self.__session.get(url, **kwargs), '/data/2.5/WeatherReport', param)
 
 
 import unittest
