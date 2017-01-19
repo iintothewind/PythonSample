@@ -16,35 +16,20 @@ class RestfulClient:
         self.__session.auth = (username, password) if username and password else None
         self.__session.verify = verify
 
-    def request_get(self, path, parameters=None):
+    def rest(self, operation_function, path, parameters=None, json=None):
+        """
+        :param operation_function: a lambda, for request method, such as: lambda url, **kwargs: self.session.get(url, **kwargs) , or lambda url, **kwargs: self.session.post(url, **kwargs)
+        :param path: the request url
+        :param parameters: the reuest parameters
+        :param parameters: the request body in Json format
+        :return: returns as much infomation as possible, if response.json() throws exception, it returns status code. if response.status_code() or http method have exception, it returns empty dict.
+        """
         resp = {}
+        path = path[path.find('/rest'):] if path.startswith(self.__base_url) else path
         try:
-            response = self.__session.get(url=self.__base_url + path, params=parameters,
-                                            verify=self.__session.verify)
-            resp.update({'status_code': response.status_code})
-            resp.update(response.json())
-        except Exception:
-            log.warn('request get exception: %s', self.__base_url + path)
-        return resp
-
-    def request_post(self, path, payload=None, parameters=None):
-        resp = {}
-        try:
-            response = self.__session.post(url=self.__base_url + path, json=payload, params=parameters,
-                                             verify=self.__session.verify)
+            response = operation_function(url=self.__base_url + path, params=parameters, json=json, verify=self.__session.verify)
             resp.update({'status_code': response.status_code})
             resp.update(response.json())
         except Exception as e:
-            log.warn('request get exception: %s', self.__base_url + path)
-        return resp
-
-    def request_delete(self, path, payload=None, parameters=None):
-        resp = {}
-        try:
-            response = self.__session.delete(url=self.__base_url + path, json=payload, params=parameters,
-                                               verify=self.__session.verify)
-            resp.update({'status_code': response.status_code})
-            resp.update(response.json())
-        except Exception as e:
-            log.warn('request get exception: %s', self.__base_url + path)
+            log.warn(e.message)
         return resp
