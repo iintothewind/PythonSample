@@ -36,12 +36,12 @@ class RestfulClient:
 
     def get(self, path, parameters=None):
         return self.rest(lambda url, **kwargs: self.__session.get(url, **kwargs), path, parameters)
-    
+
     def post(self, path, parameters=None):
-        return self.res(lambda url, **kwargs: self.__session.post(url, **kwargs), path, parameters)
+        return self.rest(lambda url, **kwargs: self.__session.post(url, **kwargs), path, parameters)
 
     def put(self, path, parameters=None):
-        return self.res(lambda url, **kwargs: self.__session.put(url, **kwargs), path, parameters)
+        return self.rest(lambda url, **kwargs: self.__session.put(url, **kwargs), path, parameters)
 
     def delete(self, path, parameters=None):
-        return self.res(lambda url, **kwargs: self.__session.delete(url, **kwargs), path, parameters)
+        return self.rest(lambda url, **kwargs: self.__session.delete(url, **kwargs), path, parameters)

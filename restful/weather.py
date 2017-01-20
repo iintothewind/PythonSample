@@ -1,4 +1,5 @@
 # coding=UTF-8
+import unittest
 from restful import log
 from restful import RestfulClient
 
@@ -13,7 +14,7 @@ class WeatherReport:
         param = {'appid': self.__appid, 'lang': self.__lang, 'q': city}
         return self.__restful_client.get('/data/2.5/weather', param)
 
-import unittest
+
 class WeatherReportTest(unittest.TestCase):
     def setUp(self):
         self.weather_report = WeatherReport('c9af8741600c1db96759585d1b26a38e')
