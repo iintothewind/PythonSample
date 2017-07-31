@@ -7,9 +7,9 @@ from basic import log
 def deco(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        log.debug("before method call: %s with args: %s", fn, ','.join(args))
+        log.debug("before method call: %s with args: %s, desc: %s", fn.func_name, ','.join(args))
         msg = fn(*args, **kwargs)
-        log.debug("after method call: %s with args: %s", fn, ','.join(args))
+        log.debug("after method call: %s with args: %s, desc: %s", fn.func_name, ','.join(args))
         return msg
 
     return wrapper
@@ -35,7 +35,7 @@ def retry(attempts=3, after=1):
     return _decorate
 
 
-@deco
+@deco(desc='this is a desc')
 @retry()
 def hello(name):
     if name is not "Python":
