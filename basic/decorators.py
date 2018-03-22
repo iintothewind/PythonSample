@@ -50,5 +50,6 @@ def hello(name):
 
 
 class DecoratorTest(unittest.TestCase):
+    @unittest.expectedFailure
     def test_deco(self):
         hello('python')
