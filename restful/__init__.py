@@ -4,22 +4,18 @@ import os
 import warnings
 
 import requests
-from tzlocal import get_localzone
 
 warnings.filterwarnings('ignore')
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)-5s %(process)d:%(thread)d %(pathname)s:%(lineno)d %(message)s')
 LOG = logging.getLogger('ewok-agent')
 BASE_DIR = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../'))
-LOCAL_ZONE = get_localzone()
-
 
 
 class RestClient:
     def __init__(self, base_url, username=None, password=None, verify=False, req_timeout=None):
         self.__base_url = base_url
-        self.__session = requests.Session()
-        self.__session.auth = (username, password) if username and password else None
-        self.__session.verify = verify
+        self.auth = (username, password) if username and password else None
+        self.verify = verify
         self.__req_timeout = req_timeout
 
     def rest(self, operation_function, path, params=None, data=None, headers=None, cookies=None, files=None, auth=None, timeout=None,
@@ -34,11 +30,19 @@ class RestClient:
         response = {}
         try:
             response = operation_function(url=path if path.startswith("http") else self.__base_url + path, params=params, data=data,
-                                          headers=headers, cookies=cookies, files=files,
-                                          auth=auth or self.__session.auth, timeout=timeout or self.__req_timeout, allow_redirects=allow_redirects,
-                                          proxies=proxies, hooks=hooks, stream=stream, verify=verify or self.__session.verify, cert=cert, json=json)
+                                          headers=headers, cookies=cookies, files=files, auth=auth or self.auth,
+                                          timeout=timeout or self.__req_timeout, allow_redirects=allow_redirects, proxies=proxies, hooks=hooks,
+                                          stream=stream, verify=verify or self.verify, cert=cert, json=json)
         except Exception as e:
-            log.warn(e.message)
+            LOG.warning(e.message)
+        try:
+            resp.update({'url': response.url})
+        except:
+            pass
+        try:
+            resp.update({'elapsed': response.elapsed.seconds})
+        except:
+            pass
         try:
             resp.update({'json': response.json()})
         except:
@@ -55,17 +59,19 @@ class RestClient:
             resp.update({'text': response.text})
         except:
             pass
-
+        LOG.debug('request: {}, response: {}'
+                  .format(dict(url=path if path.startswith("http") else self.__base_url + path, params=params,
+                               headers={k: v for k, v in headers.iteritems() if k != 'Authorization'}) if headers else None, resp))
         return resp
 
     def get(self, path, **kwargs):
-        return self.rest(lambda url, **kvargs: self.__session.get(url, **kvargs), path, **kwargs)
+        return self.rest(lambda url, **kvargs: requests.get(url, **kvargs), path, **kwargs)
 
     def post(self, path, **kwargs):
-        return self.rest(lambda url, **kvargs: self.__session.post(url, **kvargs), path, **kwargs)
+        return self.rest(lambda url, **kvargs: requests.post(url, **kvargs), path, **kwargs)
 
     def put(self, path, **kwargs):
-        return self.rest(lambda url, **kvargs: self.__session.put(url, **kvargs), path, **kwargs)
+        return self.rest(lambda url, **kvargs: requests.put(url, **kvargs), path, **kwargs)
 
     def delete(self, path, **kwargs):
-        return self.rest(lambda url, **kvargs: self.__session.delete(url, **kvargs), path, **kwargs)
+        return self.rest(lambda url, **kvargs: requests.delete(url, **kvargs), path, **kwargs)

@@ -16,22 +16,25 @@ def deco(fn):
 
 
 def retry(attempts=3, after=1):
-    temp_dict = {'retry_attempts': 3 if attempts < 0 or attempts > 5 else attempts,
-                 'retry_after': 1 if after < 0 or after > 6 else after}
-
     def _decorate(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
             exception = None
+            temp_dict = {'retry_attempts': 3 if attempts < 0 or attempts > 9 else attempts,
+                         'retry_times': 0,
+                         'retry_after': 1 if after < 0 or after > 600 else after}
             while temp_dict.get('retry_attempts') > 0:
+                temp_dict['retry_times'] += 1
                 try:
                     return fn(*args, **kwargs)
                 except Exception as ex:
-                    log.info('retry after %s seconds', temp_dict.get('retry_after'))
+                    log.error('error: %s, failed at %s time, retry after %s seconds', ex.message or '', temp_dict['retry_times'],
+                              temp_dict.get('retry_after'))
                     sleep(temp_dict.get('retry_after'))
                     temp_dict['retry_attempts'] -= 1
                     exception = ex
-            raise RuntimeError('error: {} while running function {}()'.format(exception.message, fn.func_name))
+            if exception:
+                raise exception
 
         return wrapper
 
