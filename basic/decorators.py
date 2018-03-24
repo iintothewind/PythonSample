@@ -28,7 +28,7 @@ def retry(attempts=3, after=1):
                 try:
                     return fn(*args, **kwargs)
                 except Exception as ex:
-                    log.error('error: %s, failed at %s time, retry after %s seconds', ex.message or '', temp_dict['retry_times'],
+                    log.error('error: %s, failed at %s time, retry after %s seconds', ex or '', temp_dict['retry_times'],
                               temp_dict.get('retry_after'))
                     sleep(temp_dict.get('retry_after'))
                     temp_dict['retry_attempts'] -= 1

@@ -6,8 +6,8 @@ import warnings
 import requests
 
 warnings.filterwarnings('ignore')
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)-5s %(process)d:%(thread)d %(pathname)s:%(lineno)d %(message)s')
-LOG = logging.getLogger('ewok-agent')
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)-5s %(process)d:%(thread)d %(pathname)s:%(lineno)d %(message)s')
+LOG = logging.getLogger('restful')
 BASE_DIR = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../'))
 
 
@@ -34,7 +34,7 @@ class RestClient:
                                           timeout=timeout or self.__req_timeout, allow_redirects=allow_redirects, proxies=proxies, hooks=hooks,
                                           stream=stream, verify=verify or self.verify, cert=cert, json=json)
         except Exception as e:
-            LOG.warning(e.message)
+            LOG.warning(e)
         try:
             resp.update({'url': response.url})
         except:
