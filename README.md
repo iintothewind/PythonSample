@@ -5,8 +5,8 @@ This project is to demostrate the basic usage of some python packages
 
 # Development Pre-Requisities
 
-* Python 2.7
-* IntelliJ 14 Ultimate recommended
+* Python 3
+* IntelliJ 
 
 # Quick start
 use virtualenv to create python3 environment
